@@ -10,7 +10,9 @@ will be created and leveraging the native PowerShell Send-MailMessage command an
 the script it will read the book mark file to extract the time stamp and only pull new alerts that occurred since the last time the API was queried.
 
 It is important that the necessary ports between the scripting host and the ZVM API (9669) are open, as well as necessary ports from the scripting host to the email server the message will be sent to. The 
-script can be run regularly as a job in Task Manager or another scheduling application on an interval determined by the user.   
+script can be run regularly as a job in Task Manager or another scheduling application on an interval determined by the user.  
+
+If you do not wish to filter out any alerts do not leverage a CSV to import the alert IDs. For those users who do wish to filter out specific alerts the AlertID.CSV provided can be leveraged as an example. You must leave the column header "AlertID" in the file, place the specific alert IDs into the column below Alert ID, no commas are necessary. For a list of alerts and alert IDs please reference the Zerto Alarms, Alerts, and Events PDF.  
 
 # Prerequisities
 Environment Requirements: 
