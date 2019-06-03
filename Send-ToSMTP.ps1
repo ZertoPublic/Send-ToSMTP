@@ -79,14 +79,14 @@ $ExportDataDirTestPath = test-path $CurrentLogDataDir
 If($ExportDataDirTestPath -eq $False)
 {
 New-item -ItemType Directory -Force -Path $CurrentLogDataDir
-}
+}#EndIf
 start-transcript -path $CurrentLogDataFile -NoClobber
 
 #Testing CSV output path, if not creating it
 $reportTestPath = test-path $reportOutput
 If($reportTestPath -eq $False){
     New-item -ItemType Directory -Force -Path $reportOutput
-}
+}#EndIf
 
 ############### ignore self signed SSL ##########################
 if (-not ([System.Management.Automation.PSTypeName]'ServerCertificateValidationCallback').Type)
@@ -118,7 +118,7 @@ $certCallback = @"
     }
 "@
     Add-Type $certCallback
- }
+}#EndIf
 [ServerCertificateValidationCallback]::Ignore()
 #################################################################
 
@@ -163,13 +163,13 @@ If(Test-Path $bookMarkFile){
     [DateTime]$currentBookmark = $(get-content -raw -path $bookMarkFile | convertfrom-json).value
     $startTime = $currentBookmark.AddMilliseconds(1).toString('yyyy-MM-ddTHH:mm:ss.fff')
       
-}
+}#EndIf
 Else{
     
     #If bookmark does not exist, use ZVR install date as alert query start time
-    $startTime = $(Get-ChildItem -Directory 'C:\Program Files' | Where-Object {$_.Name -like "Zerto"} | Select-object CreationTime).CreationTime.ToString('yyyy-MM-ddTHH:mm:ss.fff') 
+    $startTime = ((Get-Date).AddMinutes(-5)).ToString('yyyy-MM-ddTHH:mm:ss.fff') 
 
-}
+}#EndElse
 
 #------------------------------------------------------------------------------#
 # Build PeersList API URL
@@ -196,7 +196,7 @@ If ($alertListJSON){
             if($latestAlert -lt $alert.TurnedOn){
                 $latestAlert = $alert.TurnedOn
 
-            }
+            }#EndIf
 
 
             $alertInfo = $alert.Description
@@ -234,10 +234,10 @@ Additional details for the alert including possible causes and steps for resolut
             Send-MailMessage -From $smtpSender -To $smtpReceive -Subject $EmailDescription -Body $EmailBody -SmtpServer $smtpServer 
 
 
-        }
+        }#EndIf
         $latestAlert | ConvertTo-Json | Set-Content -path $bookMarkFile
-    }
-}
+    }#EndForEach
+}#EndIf
 
 
 #------------------------------------------------------------------------------#
