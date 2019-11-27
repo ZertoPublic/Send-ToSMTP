@@ -14,7 +14,7 @@ script can be run regularly as a job in Task Manager or another scheduling appli
 
 If you do not wish to filter out any alerts do not leverage a CSV to import the alert IDs. For those users who do wish to filter out specific alerts the AlertID.CSV provided can be leveraged as an example. You must leave the column header "AlertID" in the file, place the specific alert IDs into the column below Alert ID, no commas are necessary. For a list of alerts and alert IDs please reference the Zerto Alarms, Alerts, and Events PDF.  
 
-# Prerequisities
+# Prerequisites
 Environment Requirements: 
   - PowerShell 5.0 +
   - ZVR 5.0u3+ 
